@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useParams, useHistory } from "react-router-dom";
 import {
   readDeck,
   deleteDeck,
   deleteCard,
   listCards,
-} from '../utils/api/index';
+} from "../utils/api/index";
 
 function DeckScreen() {
   const [deck, setDeck] = useState([]);
@@ -20,8 +20,8 @@ function DeckScreen() {
         setDeck(deckData);
         setCards(deckData.cards);
       } catch (error) {
-        if (error.name === 'AbortError') {
-          console.log('Aborted');
+        if (error.name === "AbortError") {
+          console.log("Aborted");
         } else throw error;
       }
     }
@@ -37,10 +37,10 @@ function DeckScreen() {
       async function deleteData() {
         try {
           await deleteDeck(deckId);
-          history.push('/');
+          history.push("/");
         } catch (error) {
-          if (error.name === 'AbortError') {
-            console.log('Aborted');
+          if (error.name === "AbortError") {
+            console.log("Aborted");
           } else throw error;
         }
       }
@@ -48,8 +48,8 @@ function DeckScreen() {
     }
   };
 
-  const handleCardDelete = async ({ target }) => {
-    const { value } = target;
+  const handleCardDelete = async (value) => {
+    console.log(value);
 
     const windowMsg = window.confirm(
       `Delete this card? You will not be able to recover it.`
@@ -62,8 +62,8 @@ function DeckScreen() {
           console.log(deckId, deckData);
           setCards(deckData);
         } catch (error) {
-          if (error.name === 'AbortError') {
-            console.log('Aborted');
+          if (error.name === "AbortError") {
+            console.log("Aborted");
           } else throw error;
         }
       }
@@ -78,7 +78,7 @@ function DeckScreen() {
           <ol className="breadcrumb">
             <li className="breadcrumb-item" key="0">
               <Link to="/">
-                {' '}
+                {" "}
                 <span className="oi oi-home" /> Home
               </Link>
             </li>
@@ -92,14 +92,14 @@ function DeckScreen() {
         <div className="row justify-content-between">
           <div className="col-8">
             <Link to={`/decks/${deckId}/edit`} className="btn btn-secondary">
-              {' '}
+              {" "}
               <span className="oi oi-pencil" /> Edit
-            </Link>{' '}
+            </Link>{" "}
             &nbsp;
             <Link to={`/decks/${deckId}/study`} className="btn btn-primary">
-              {' '}
+              {" "}
               <span className="oi oi-book" /> Study
-            </Link>{' '}
+            </Link>{" "}
             &nbsp;
             <Link to={`/decks/${deckId}/cards/new`} className="btn btn-primary">
               <span className="oi oi-plus" /> Add Cards
@@ -112,12 +112,12 @@ function DeckScreen() {
           </div>
         </div>
         <br />
-        <heading>
+        <header>
           <h2>Cards</h2>
-        </heading>
+        </header>
         <br />
         {cards.map((card) => (
-          <div className="card">
+          <div className="card" key={card.id}>
             <div className="card-body">
               <div className="container">
                 <div className="row">
@@ -130,11 +130,10 @@ function DeckScreen() {
                         className="btn btn-secondary mt-4"
                       >
                         <span className="oi oi-pencil" /> Edit
-                      </Link>{' '}
+                      </Link>{" "}
                       &nbsp;
                       <button
-                        onClick={handleCardDelete}
-                        value={card.id}
+                        onClick={() => handleCardDelete(card.id)}
                         className="btn btn-danger mt-4"
                       >
                         <span className="oi oi-trash" />
@@ -177,11 +176,11 @@ function DeckScreen() {
             <div className="col-8">
               <Link to={`/decks/${deckId}/edit`} className="btn btn-secondary">
                 <span className="oi oi-pencil" /> Edit
-              </Link>{' '}
+              </Link>{" "}
               &nbsp;
               <Link to={`/decks/${deckId}/study`} className="btn btn-primary">
                 <span className="oi oi-book" /> Study
-              </Link>{' '}
+              </Link>{" "}
               &nbsp;
               <Link
                 to={`/decks/${deckId}/cards/new`}

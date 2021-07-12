@@ -7,7 +7,7 @@ function CreateDeck() {
     name: '',
     description: '',
   };
-  const [formData, setFormData] = useState({ initialFormState });
+  const [formData, setFormData] = useState(initialFormState);
   const changeHandler = ({ target }) => {
     const { value, name } = target;
     setFormData({

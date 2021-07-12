@@ -1,5 +1,6 @@
 import React from 'react';
 function DeckForm({ formData, changeHandler }) {
+  console.log(formData)
   return (
     <div className="form-row">
       <div className="col-md-6 mb-3">
